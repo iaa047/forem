@@ -32,4 +32,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'select2-rails', '~> 3.5.10'
   s.add_dependency 'friendly_id', '~> 5.1.0'
   s.add_dependency 'cancancan', '~> 1.15.0'
+  s.add_dependency 'kaminari', '~> 0.17.0'
 end
