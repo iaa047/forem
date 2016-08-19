@@ -1,71 +1,66 @@
+require_dependency "forem/admin/admin_controller"
+
 module Forem
   module Admin
-    class ForumsController < BaseController
-      before_filter :find_forum, :only => [:edit, :update, :destroy]
+    class ForumsController < AdminController
+      before_action :set_forum, only: [:edit, :update]
 
       def index
-        @forums = Forem::Forum.all
+        @forums = Forum.page(params[:page]).per(params[:per_page])
+        respond_to do |format|
+          format.html { render }
+          format.json { render json: @forums, status: :ok }
+        end
       end
 
       def new
-        @forum = Forem::Forum.new
+        @forum = Forum.new
+      end
+
+      def edit
       end
 
       def create
-        @forum = Forem::Forum.new(forum_params)
-        if @forum.save
-          create_successful
-        else
-          create_failed
+        @forum = Forum.new(forum_params)
+        #  @forum.user_id = current_user.id
+        @forum.user_id = 1
+        respond_to do |format|
+          if @forum.save
+            format.html { redirect_to forum_path(@forum.permalink), notice: 'Forum was successfully created.' }
+            format.json { render json: @forum, status: :created, location: @forum }
+          else
+            format.html { render action: 'new' }
+            format.json { render json: @forum.errors, status: :unprocessable_entity }
+          end
         end
       end
 
       def update
-        if @forum.update_attributes(forum_params)
-          update_successful
-        else
-          update_failed
+        respond_to do |format|
+          if @forum.update(forum_params)
+            format.html { redirect_to forum_path(@forum.permalink), notice: 'Forum was successfully updated.' }
+            format.json { render json: @forum, status: :created, location: @forum }
+          else
+            format.html { render action: 'edit' }
+            format.json { render json: @forum.errors, status: :unprocessable_entity }
+          end
         end
-      end
-
-      def destroy
-        @forum.destroy
-        destroy_successful
       end
 
       private
 
       def forum_params
-        params.require(:forum).permit(:category_id, :title, :description, :position, { :moderator_ids => []})
+        params.require(:forum).permit(:title, :description)
       end
 
-      def find_forum
-        @forum = Forem::Forum.friendly.find(params[:id])
-      end
-
-      def create_successful
-        flash[:notice] = t("forem.admin.forum.created")
-        redirect_to admin_forums_path
-      end
-
-      def create_failed
-        flash.now.alert = t("forem.admin.forum.not_created")
-        render :action => "new"
-      end
-
-      def destroy_successful
-        flash[:notice] = t("forem.admin.forum.deleted")
-        redirect_to admin_forums_path
-      end
-
-      def update_successful
-        flash[:notice] = t("forem.admin.forum.updated")
-        redirect_to admin_forums_path
-      end
-
-      def update_failed
-        flash.now.alert = t("forem.admin.forum.not_updated")
-        render :action => "edit"
+      def set_forum
+        @forum = Forum.find_by(id: params[:id])
+        unless @forum
+          respond_to do |format|
+            format.html { redirect_to  admin_forums_path, notice: 'Forum not found' }
+            format.json { render nothing: true, status: :not_found }
+          end
+        end
       end
 
     end

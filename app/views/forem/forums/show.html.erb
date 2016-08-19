@@ -1,23 +1,9 @@
-<div class='forum'>
-  <%= render :partial => 'forem/forums/head', :locals => { :forum => @forum } %>
+<h1> Forum: <%= @forum.title %> </h1>
+<p>description: <%= @forum.description %></p>
 
-  <%= forem_pages_widget(@topics) %>
-  <table class='topics table-striped table' cellspacing='0'>
-    <thead>
-      <tr>
-        <th class="icon"></th>
-        <th class="byline"><%= t('forem.topic.headings.topic') -%></th>
-        <th class="latest-post text-center"><%= t('forem.topic.headings.latest') -%></th>
-        <th class="posts-count text-center"><%= t('forem.topic.headings.posts') -%></th>
-        <th class="views-count text-center"><%= t('forem.topic.headings.views') -%></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @topics.empty? %>
-        <tr><td colspan='5' align='center'><%= t('forem.topic.none') %></td></tr>
-      <% end %>
-      <%= render @topics %>
-    </tbody>
-  </table>
-  <%= forem_pages_widget(@topics) %>
-</div>
+
+<% @forum.topics.each do |topic| %>
+  <%= link_to(topic.title, forum_topic_path(@forum.permalink, topic.permalink)) %>
+<% end %>
+
+<%= link_to('new topic', new_forum_topic_path(@forum.permalink)) %>

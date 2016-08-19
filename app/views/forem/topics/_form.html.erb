@@ -1,9 +1,26 @@
-<%= simple_form_for [forem, @forum, @topic] do |f| %>
-  <%= f.input :subject %>
+<% url = @topic.new_record? ?
+    forum_topics_path(@forum.permalink) :
+    forum_topic_post_path(@post.permalink, @topic.permalink)
+%>
 
-  <%= f.simple_fields_for :posts do |post| %>
-    <%= render :partial => "forem/posts/form", :locals => { :f => post }%>
+<%= form_for [@forum, @topic], url: url do |f| %>
+   <% if @topic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
+
+      <ul>
+      <% @topic.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
-  
-  <%= f.submit :class => "btn btn-primary" %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.submit %>
 <% end %>

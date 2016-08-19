@@ -1,5 +1,23 @@
-<%= f.input :text, :input_html => { :class => "field col-md-12" } %>
+<% url = @post.new_record? ?
+    forum_topic_posts_path(@forum.permalink, @topic.permalink) :
+    edit_forum_topic_post_path(@post.permalink, @topic.permalink, @post)
+%>
 
-<% if params[:reply_to_id] %>
-  <%= f.hidden_field :reply_to_id, :value => params[:reply_to_id] %>
+<%= form_for [@forum, @topic, @post], url: url do |f| %>
+   <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+
+  <%= f.submit %>
 <% end %>

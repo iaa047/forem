@@ -1,33 +1,17 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem 'forem-theme-base', :git => "git://github.com/radar/forem-theme-base", :branch => "master"
-
+# Declare your gem's dependencies in forem.gemspec.
+# Bundler will treat runtime dependencies like base dependencies, and
+# development dependencies will be added by default to the :development group.
 gemspec
+# Declare any dependencies that are still in development here instead of in
+# your gemspec. These might include edge Rails or gems from your path or
+# Git. Remember to move these dependencies to your gemspec before releasing
+# your gem to rubygems.org.
 
-gem 'pry-rails'
-gem 'pry-nav'
-gem 'select2-rails', '~> 3.5.4'
+# To use a debugger
+# gem 'byebug', group: [:development, :test]
 
-platforms :jruby do
-  gem "activerecord-jdbc-adapter", :require => false
-end
-
-group :test do
-  platforms :ruby, :mingw do
-    gem "forem-redcarpet"
-    gem "mysql2"
-    gem "pg"
-    gem "sqlite3"
-  end
-
-  platforms :jruby do
-    gem "activerecord-jdbcmysql-adapter", :require => false
-    gem "activerecord-jdbcpostgresql-adapter", :require => false
-    gem "activerecord-jdbcsqlite3-adapter", :require => false
-    gem "forem-kramdown", :github => "phlipper/forem-kramdown", :branch => "master"
-  end
-end
-
-if RUBY_VERSION < '1.9.2'
-  gem 'nokogiri', '~> 1.5.9'
-end
+# On gemspec cant specify github source
+# only latest version is compatible with rails 5.0.1
+gem "kaminari", github: "amatsuda/kaminari"
