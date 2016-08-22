@@ -21,7 +21,8 @@ module ::Forem
     # Precompile any assets included straight in certain pges
     initializer "forem.assets.precompile", :group => :all do |app|
       app.config.assets.precompile += %w[
-        forem/admin/members.js
+        forem/admin/members.js,
+        forem.js
       ]
     end
   end
