@@ -12,7 +12,7 @@ module Forem
     def posts
       Forem::Post.moderate!(params[:posts] || [])
       flash[:notice] = t('forem.posts.moderation.success')
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
 
     def topic
@@ -23,7 +23,7 @@ module Forem
       else
         flash[:error] = t("forem.topic.moderation.no_option_selected")
       end
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
 
     private

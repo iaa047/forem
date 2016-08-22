@@ -125,7 +125,7 @@ module Forem
       if forem_user.forem_spammer?
         flash[:alert] = t('forem.general.flagged_for_spam') + ' ' +
                         t('forem.general.cannot_create_post')
-        redirect_to :back
+        redirect_back(fallback_location: root_path)
       end
     end
 
