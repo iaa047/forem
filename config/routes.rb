@@ -4,7 +4,7 @@ Forem::Engine.routes.draw do
   resources :categories, :only => [:index, :show]
 
   namespace :admin do
-    root :to => "base#index"
+    root to: 'base#index', as: 'root'
     resources :groups do
       resources :members, only: [:destroy] do
         collection do
