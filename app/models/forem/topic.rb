@@ -126,6 +126,13 @@ module Forem
       (self.posts.count.to_f / Forem.per_page.to_f).ceil
     end
 
+    # Finders in FriendlyID are broken in Rails 5, will be fixed in ver `5.2.0`
+    # Until then and to maintain compatibility with older code find is rewritten
+    # to find by slug
+    def self.find(slug)
+      friendly.find(slug)
+    end
+
     protected
     def set_first_post_user
       post = posts.first

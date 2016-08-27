@@ -15,5 +15,11 @@ module Forem
       name
     end
 
+    # Finders in FriendlyID are broken in Rails 5, will be fixed in ver `5.2.0`
+    # Until then and to maintain compatibility with older code find is rewritten
+    # to find by slug
+    def self.find(slug)
+      friendly.find(slug)
+    end
   end
 end
