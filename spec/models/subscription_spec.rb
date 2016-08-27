@@ -17,7 +17,10 @@ describe Forem::Subscription do
     end
 
     let(:attributes) do
-      { :subject => "A topic" }
+      {
+        subject: 'A topic',
+        user: FactoryGirl.create(:not_autosubscribed)
+      }
     end
 
     let(:topic) { Forem::Topic.new(attributes) }

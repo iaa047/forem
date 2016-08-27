@@ -12,8 +12,8 @@ module Forem
     extend FriendlyId
     friendly_id :subject, :use => [:slugged, :finders]
 
-    belongs_to :forum
-    belongs_to :forem_user, :class_name => Forem.user_class.to_s, :foreign_key => :user_id
+    belongs_to :forum, optional: true
+    belongs_to :forem_user, :class_name => Forem.user_class.to_s, :foreign_key => :user_id, optional: true
     has_many   :subscriptions, :dependent => :destroy
     has_many   :posts, -> { order "forem_posts.created_at ASC"}, :dependent => :destroy
     accepts_nested_attributes_for :posts
