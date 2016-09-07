@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'timecop', '~> 0.6.1'
   s.add_development_dependency 'sass-rails', '~> 4.0'
   s.add_development_dependency 'coffee-rails', '~> 4.0'
+  s.add_development_dependency 'bullet', '~> 5.3.0'
 
   s.add_dependency 'rails', '~> 4.0', '!= 4.2.0', '!= 4.2.1', '!= 4.2.2', '!= 4.2.3'
   s.add_dependency 'simple_form', '~> 3.0'

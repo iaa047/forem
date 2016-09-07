@@ -10,4 +10,7 @@ require "devise"
 require "devise/rails"
 require 'jquery-rails'
 
+# Need to require `bullet` here in order to use `Bullet` in `test.rb`
+require 'bullet'
+
 <%= application_definition %>

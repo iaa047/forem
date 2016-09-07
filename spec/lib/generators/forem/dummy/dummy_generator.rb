@@ -60,6 +60,11 @@ module Forem
                   "\n  config.action_mailer.default_url_options = { :host => 'www.example.com' }\n",
                   :before => "end\n",
                   :verbose => false
+
+      inject_into_file "#{dummy_path}/config/environments/test.rb",
+                  "\n  config.after_initialize { Bullet.enable = true;  Bullet.bullet_logger = true; Bullet.rails_logger = true; Bullet.raise = true; }\n",
+                  :before => "end\n",
+                  :verbose => false
       inject_into_file "#{dummy_path}/config/application.rb",
                   "\nrequire 'kaminari'\n",
                   :before => "module Dummy"
