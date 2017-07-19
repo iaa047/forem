@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 5.0'
   s.add_dependency 'simple_form', '~> 3.5.0'
-  s.add_dependency 'sanitize', '~> 4.1.0'
+  s.add_dependency 'sanitize', '~> 2.0'
   s.add_dependency 'workflow', '~> 1.2.0'
   s.add_dependency 'gemoji', '~> 2.1.0'
   s.add_dependency 'decorators', '~> 2.0.2'
