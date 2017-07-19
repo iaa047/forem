@@ -133,6 +133,10 @@ module Forem
       friendly.find(slug)
     end
 
+    def user
+      User.find(user_id) if user_id.present?
+    end
+
     protected
     def set_first_post_user
       post = posts.first
