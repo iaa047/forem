@@ -81,6 +81,10 @@ module Forem
       user == other_user || other_user.forem_admin?
     end
 
+    def user
+      User.find(user_id) if user_id.present?
+    end
+
     protected
 
     def subscribe_replier
