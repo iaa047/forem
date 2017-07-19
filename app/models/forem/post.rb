@@ -29,11 +29,16 @@ module Forem
       end
 
       def approved_or_pending_review_for(user)
-        if user
+        user_id = if user.blank? || user.is_a?(Integer)
+                    user
+                  elsif user.present?
+                    user.id
+                  end
+        if user_id
           state_column = "#{Post.table_name}.state"
           where("#{state_column} = 'approved' OR
             (#{state_column} = 'pending_review' AND #{Post.table_name}.user_id = :user_id)",
-            user_id: user.id)
+            user_id: user_id)
         else
           approved
         end
