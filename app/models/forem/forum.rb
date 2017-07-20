@@ -34,7 +34,7 @@ module Forem
     end
 
     def moderator?(user)
-      user && (user.forem_group_ids & moderator_ids).any?
+      user && (user.forem_group_ids & moderator_ids).present?
     end
 
     def to_s
