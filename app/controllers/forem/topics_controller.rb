@@ -24,7 +24,7 @@ module Forem
     def create
       authorize! :create_topic, @forum
       @topic = @forum.topics.build(topic_params)
-      @topic.user = forem_user
+      @topic.user_id = forem_user.id
       if @topic.save
         create_successful
       else
@@ -34,7 +34,7 @@ module Forem
 
     def destroy
       @topic = @forum.topics.friendly.find(params[:id])
-      if forem_user == @topic.user || forem_user.forem_admin?
+      if forem_user.id == @topic.user_id || forem_user.forem_admin?
         @topic.destroy
         destroy_successful
       else

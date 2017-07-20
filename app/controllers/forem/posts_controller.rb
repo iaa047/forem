@@ -29,7 +29,7 @@ module Forem
       authorize_reply_for_topic!
       block_spammers
       @post = @topic.posts.build(post_params)
-      @post.user = forem_user
+      @post.user_id = forem_user.id
 
       if @post.save
         create_successful
