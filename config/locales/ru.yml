@@ -201,6 +201,7 @@ ru:
         description: Описание
         category: Категория
         moderators: Модераторы
+        position: Позиция темы на форуме
       topic:
         subject: Тема
         locked: Закрыта
