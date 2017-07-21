@@ -15,7 +15,7 @@ module Forem
     has_many :moderator_groups
 
     validates :category, :name, :description, :presence => true
-    validates :position, numericality: { only_integer: true }
+    #validates :position, numericality: { only_integer: true }
 
     alias_attribute :title, :name
 
