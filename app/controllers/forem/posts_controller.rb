@@ -8,7 +8,7 @@ module Forem
       find_post
       page = (@topic.posts.count.to_f / Forem.per_page.to_f).ceil
 
-      redirect_to forum_topic_url(@topic.forum, @topic, pagination_param => page, anchor: "post-#{@post.id}")
+      redirect_to forum_topic_url(@topic.forum, @topic, page: page, anchor: "post-#{@post.id}")
     end
 
     def new
@@ -84,7 +84,7 @@ module Forem
 
     def create_successful
       flash[:notice] = t("forem.post.created")
-      redirect_to forum_topic_url(@topic.forum, @topic, pagination_param: @topic.last_page, anchor:  "post-#{@post.id}")
+      redirect_to forum_topic_url(@topic.forum, @topic, page: @topic.last_page, anchor:  "post-#{@post.id}")
     end
 
     def create_failed
