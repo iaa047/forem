@@ -196,6 +196,7 @@ ru:
     labels:
       category:
         name: Название
+        position: Позиция категории на форуме
       forum:
         title: Заголовок
         description: Описание
