@@ -101,9 +101,9 @@ module Forem
 
     def find_posts(topic)
       posts = topic.posts
-      unless forem_admin_or_moderator?(topic.forum)
-        posts = posts.approved_or_pending_review_for(forem_user)
-      end
+      # unless forem_admin_or_moderator?(topic.forum)
+      #   posts = posts.approved_or_pending_review_for(forem_user)
+      # end
       @posts = posts
     end
 
