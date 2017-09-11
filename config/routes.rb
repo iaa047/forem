@@ -37,6 +37,10 @@ Forem::Engine.routes.draw do
 
   resources :forums, :only => [:index, :show], :path => "/" do
     resources :topics, :except => :index do
+      member do
+        get :subscribe
+        get :unsubscribe
+      end
       resources :posts, :except => :index
       member do
         post :subscribe
