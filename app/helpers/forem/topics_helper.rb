@@ -24,7 +24,7 @@ module Forem
       posts = topic.posts.by_created_at
       if forem_admin_or_moderator?(topic.forum)
         posts
-      elsif topic.user_id == forem_user.id
+      elsif forem_user.present? && topic.user_id == forem_user.id
         posts.visible.approved_or_pending_review_for(topic.user_id)
       else
         posts.approved
