@@ -20,8 +20,8 @@ module Forem
     delegate :forum, :to => :topic
 
     after_create :set_topic_last_post_at
-    after_create :subscribe_replier, :if => :user_auto_subscribe?
-    after_create :skip_pending_review
+    after_commit :subscribe_replier, :if => :user_auto_subscribe? && :persisted?
+    after_commit :skip_pending_review, if: :persisted?
 
     class << self
       def approved
@@ -112,7 +112,7 @@ module Forem
     end
 
     def skip_pending_review
-      approve! #unless user && user.forem_moderate_posts?
+      self.approve #unless user && user.forem_moderate_posts?
     end
 
     def approve_user
