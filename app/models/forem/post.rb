@@ -112,7 +112,7 @@ module Forem
     end
 
     def skip_pending_review
-      self.approve #unless user && user.forem_moderate_posts?
+      approve! #unless user && user.forem_moderate_posts?
     end
 
     def approve_user
