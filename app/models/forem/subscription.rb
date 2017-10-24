@@ -17,5 +17,15 @@ module Forem
         end
       end
     end
+
+    def self.send_notification2(post_id, user_id)
+      return if post_id.blank? || user_id.blank?
+      mail = SubscriptionMailer.topic_reply(post_id, user_id)
+      if mail.respond_to?(:deliver_later)
+        mail.deliver_later
+      else
+        mail.deliver
+      end
+    end
   end
 end

@@ -106,7 +106,7 @@ module Forem
       end
       if reply_to.present?
         subs = topic.subscriptions.find_by(subscriber_id: reply_to.forem_user.id, topic_id: topic.id)
-        SubscriptionMailer.topic_reply(id, reply_to.forem_user.id) if subs.blank?
+        Subscription.send_notification2(id, reply_to.forem_user.id) if subs.blank?
       end
       update_column(:notified, true)
     end
